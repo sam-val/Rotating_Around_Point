@@ -1,4 +1,4 @@
-## Rotating around a point
+## Rotating Around a Point
 
 Using transformation matrices.
 

@@ -2,7 +2,7 @@
 
 Using transformation matrix.
 
-## How:
+## Installation:
 
 0. Install Python3 which comes with ``pip``
 

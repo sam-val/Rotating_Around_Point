@@ -1,6 +1,6 @@
 ## Rotating around a point
 
-Using transformation matrix.
+Using transformation matrices.
 
 ## Installation:
 
@@ -20,7 +20,7 @@ Using transformation matrix.
 
 ## How to use:
 
-- Click on a square to turn activate it. Click on it again to set it as a center point (``colored red``). Click for a third time to remove.
+- Click on a square to activate it. Click on it again to set it to the center point (``colored red``). Click for a third time to remove.
 
 - **``Right click``** any where to rotate.
 

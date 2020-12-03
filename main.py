@@ -4,8 +4,8 @@ from collections import deque
 
 # Colours:
 EMPTY = 'gray'
-CENTER = 'green'
-BODY = 'red'
+CENTER = 'red'
+BODY = 'midnightblue'
 
 class Cube(QWidget):
     clicked = pyqtSignal()
@@ -18,7 +18,6 @@ class Cube(QWidget):
         self.colour = EMPTY
         self.pos = x, y
         self.states = deque([0,1,2])
-
         self.changeColour(self.colour)
 
     def mousePressEvent(self, e) -> None:
@@ -89,14 +88,18 @@ class MyWin(QMainWindow):
             for y in range(self.height):
                 for x in range(self.width):
                     cube = self.grid.itemAtPosition(x, y).widget()
-                    if (x, y) == self.center_cube.pos:
-                        cube.changeColour(CENTER)
+                    if cube == self.center_cube:
+                        pass
                     elif (x,y) not in self.body:
+                        self.changeState(cube, at=0)
                         cube.changeColour(EMPTY)
                     else:
+                        self.changeState(cube, at=1)
                         cube.changeColour(BODY)
+
         else:
             print("No center cube selected")
+
 
     def changeRotationDirection(self):
         self.rot_direction = not self.rot_direction
@@ -105,6 +108,7 @@ class MyWin(QMainWindow):
     def cube_is_clicked(self):
         cube = self.sender()
         pos = cube.pos
+        # print("state: ", cube.states[0])
 
         # change to next state: 0 -> 1; 1 -> 2; 2 -> 3;
         self.changeState(cube)
@@ -143,15 +147,12 @@ class MyWin(QMainWindow):
             if pos in self.body:
                 self.body.remove(pos)
 
-    def setCenterCube(self, cube):
-        pass
-
     def changeState(self, cube, at=None):
-        if not at:
+        if at is None:
             cube.states.rotate(-1)
         else:
             while True:
-                cube.states.rotate(1)
+                cube.states.rotate(-1)
                 cur = cube.states[0]
                 if cur == at:
                     break
@@ -167,10 +168,10 @@ class MyWin(QMainWindow):
         print('closing app...')
         self.close()
 
+WIDTH, HEIGHT = 6, 6
 CUBE_WIDTH = 120
 app = QApplication(sys.argv)
-win = MyWin(6,6,CUBE_WIDTH)
-
+win = MyWin(WIDTH,HEIGHT,CUBE_WIDTH)
 
 ## align cetner
 new_rect = QStyle.alignedRect(Qt.LeftToRight, Qt.AlignCenter, win.size(),
